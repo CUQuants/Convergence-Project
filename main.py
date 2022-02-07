@@ -30,3 +30,23 @@ def main():
         
 if __name__ == "__main__":
     main()
+
+#This function outputs the portfolio returns of the weighted portfolio  
+
+def portfolioReturns(dataframe):
+    
+    #Weighting Fucntion:
+    weights=np.random.random(len(stocks.columns))
+    weights /= np.sum(weights)
+    weightsTransposed=weights.T
+
+    #Applying weights to histoircal returns
+
+    weightedHistoricalReturns=stocks.mul(weightsTransposed, fill_value="NA")
+    weightedHistoricalReturns["total"]=weightedHistoricalReturns.sum(axis=1)
+    portfolioReturns=weightedHistoricalReturns["total"]
+    
+    return portfolioReturns
+    
+test=portfolioReturns(stocks)
+
